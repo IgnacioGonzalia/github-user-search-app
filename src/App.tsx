@@ -35,7 +35,7 @@ function App() {
       }}
     >
       <button
-        className="p-4 flex flex-row justify-center items-center gap-4 rounded-md shadow-md"
+        className="p-4 flex flex-row justify-center items-center gap-4 rounded-md shadow-md space-mono"
         style={{
           backgroundColor: darkTheme
             ? colors.dark.cardBackground
