@@ -15,11 +15,11 @@ const NavBar = () => {
         devfinder
       </p>
       <button
-        className="flex flex-row justify-center items-center gap-4"
+        className="flex flex-row justify-center items-center gap-4 cursor-pointer"
         onClick={() => setDarkTheme(!darkTheme)}
       >
         <p
-          className="space-mono text-sm"
+          className="space-mono bold text-sm tracking-[2.5px]"
           style={{ color: darkTheme ? colors.dark.text : colors.light.text }}
         >
           {darkTheme ? "LIGHT" : "DARK"}
