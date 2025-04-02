@@ -1,4 +1,4 @@
-import useTheme from "../utils/useTheme";
+import { useTheme } from "../utils/ThemeContext";
 import colors from "../colors";
 import MoonIcon from "../assets/icon-moon.svg";
 import SunIcon from "../assets/icon-sun.svg";
