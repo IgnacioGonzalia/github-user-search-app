@@ -1,9 +1,20 @@
 @import "tailwindcss";
 @import "./typhography.css";
 
+:root {
+  --bg: #F6F8FF;
+  --text: #4B6A9B;
+}
+
+.dark {
+  --bg: #141D2F;
+  --text: #FFFFFF;
+}
+
 html,
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
 }
