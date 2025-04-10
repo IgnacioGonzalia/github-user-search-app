@@ -9,7 +9,7 @@ const UserSearch = () => {
     "mt-[45.5px] md:w-[573px] md:py-[9.5px] md:pl-8 md:pr-2.5 lg:mt-9 lg:w-[730px]";
   const searchIconStyles = "w-5 h-5 md:w-6 md:h-6";
   const inputStyles =
-    "ml-[9px] flex-1 bg-transparent outline-none text-[var(--text)] placeholder:text-[var(--text)] space-mono text-[13px] pr-2";
+    "ml-[9px] flex-1 bg-transparent outline-none text-[var(--text)] placeholder:text-[var(--text)] space-mono text-[13px] pr-2 cursor-pointer";
   const inputStylesLarger = "md:ml-6 md:text-[18px]";
   const buttonStyles =
     "space-mono bold bg-[var(--lightblue)] text-white pl-[18px] pr-[14px] py-3 rounded-[10px] cursor-pointer hover:bg-[var(--lightblue-hover)] transition-all";
