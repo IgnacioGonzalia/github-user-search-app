@@ -4,21 +4,26 @@ import SunIcon from "../assets/icon-sun.svg";
 
 const NavBar = () => {
   const { darkTheme, setDarkTheme } = useTheme();
+  const navbarContainer =
+    "mt-8 mx-6 flex flex-row justify-between items-center p-6 transition-colors text-[var(--text)] md:mt-36 md:mx-24 lg:max-w-[730px] lg:mx-auto";
+  const logoStyles = "space-mono bold text-[26px]";
+  const themeToggleStyles =
+    "flex flex-row justify-center items-center gap-4 cursor-pointer";
+  const toggleTextStyles = "space-mono bold text-sm tracking-[2.5px] uppercase";
+  const toggleIconStyles = "h-5 w-5";
 
   return (
-    <div className="mt-8 mx-6 flex flex-row justify-between items-center p-6 transition-colors text-[var(--text)] md:mt-36 md:mx-24 xl:max-w-[730px] xl:mx-auto">
-      <p className="space-mono bold text-[26px]">devfinder</p>
+    <div className={navbarContainer}>
+      <p className={logoStyles}>devfinder</p>
       <button
-        className="flex flex-row justify-center items-center gap-4 cursor-pointer"
+        className={themeToggleStyles}
         onClick={() => setDarkTheme(!darkTheme)}
       >
-        <p className="space-mono bold text-sm tracking-[2.5px] uppercase">
-          {darkTheme ? "Light" : "Dark"}
-        </p>
+        <p className={toggleTextStyles}>{darkTheme ? "Light" : "Dark"}</p>
         <img
           src={darkTheme ? SunIcon : MoonIcon}
           alt="Theme toggle"
-          className="h-5 w-5"
+          className={toggleIconStyles}
         />
       </button>
     </div>

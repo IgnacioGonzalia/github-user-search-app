@@ -4,11 +4,17 @@
 :root {
   --bg: #F6F8FF;
   --text: #4B6A9B;
+  --card-bg: #FEFEFE;
+  --lightblue: #0079FF;
+  --lightblue-hover: #60ABFF;
 }
 
 .dark {
   --bg: #141D2F;
   --text: #FFFFFF;
+  --card-bg: #1E2A47;
+  --lightblue: #0079FF;
+  --lightblue-hover: #60ABFF;
 }
 
 html,
