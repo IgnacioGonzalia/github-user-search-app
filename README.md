@@ -66,8 +66,8 @@ src/
 ## ✅ Estado del desarrollo
 
 - [x] Setup inicial
-- [ ] Tema claro/oscuro
-- [ ] Navbar + fuentes
+- [x] Tema claro/oscuro
+- [x] Navbar + fuentes
 - [ ] SearchBar interactiva
 - [ ] Fetch de GitHub API
 - [ ] Card de usuario
