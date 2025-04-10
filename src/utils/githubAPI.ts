@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const BASE_URL = "https://api.github.com/users";
+const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
-interface GitHubUser {
+export interface GitHubUser {
   login: string;
   id: number;
   node_id: string;
@@ -39,8 +40,12 @@ interface GitHubUser {
 
 export const fetchUser = async (username: string): Promise<GitHubUser> => {
   try {
-    const response = await axios.get<GitHubUser>(`${BASE_URL}/${username}`);
-    return response.data;
+    const { data } = await axios.get<GitHubUser>(`${BASE_URL}/${username}`, {
+      headers: {
+        Authorization: `token ${TOKEN}`,
+      },
+    });
+    return data;
   } catch (error) {
     console.error("Error fetching user.", error);
     throw error;

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import SearchIcon from "../assets/icon-search.svg";
 
-const UserSearch = () => {
+interface UserSearchProps {
+  onSearch: (username: string) => void;
+  error: string;
+}
+
+const UserSearch = ({ onSearch, error }: UserSearchProps) => {
   const [search, setSearch] = useState("");
   const searchContainer =
     "mt-9 mx-auto flex w-[350px] pt-[6.5px] pb-[7.5px] pl-4 pr-2 items-center rounded-2xl transition-colors bg-[var(--card-bg)] text-[var(--text)] shadow-xl";
@@ -16,20 +21,23 @@ const UserSearch = () => {
   const buttonStylesLarger = "md:text-base md:pt-[12.5px] md:pb-[13.5] md:px-6";
 
   return (
-    <div className={`${searchContainer} ${searchContainerLarger}`}>
-      <img src={SearchIcon} alt="Search icon" className={searchIconStyles} />
-      <input
-        placeholder="Search GitHub username…"
-        className={`${inputStyles} ${inputStylesLarger}`}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button
-        className={`${buttonStyles} ${buttonStylesLarger}`}
-        onClick={() => console.log(search)}
-      >
-        Search
-      </button>
-    </div>
+    <>
+      <div className={`${searchContainer} ${searchContainerLarger}`}>
+        <img src={SearchIcon} alt="Search icon" className={searchIconStyles} />
+        <input
+          placeholder="Search GitHub username…"
+          className={`${inputStyles} ${inputStylesLarger}`}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button
+          className={`${buttonStyles} ${buttonStylesLarger}`}
+          onClick={() => onSearch(search)}
+        >
+          Search
+        </button>
+      </div>
+      <p>{error}</p>
+    </>
   );
 };
 

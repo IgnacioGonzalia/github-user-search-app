@@ -7,6 +7,8 @@
   --card-bg: #FEFEFE;
   --lightblue: #0079FF;
   --lightblue-hover: #60ABFF;
+  --darkblue: #2B3442;
+  --lightgray: #697C9A;
 }
 
 .dark {
@@ -15,6 +17,8 @@
   --card-bg: #1E2A47;
   --lightblue: #0079FF;
   --lightblue-hover: #60ABFF;
+  --darkblue: #FFFFFF;
+  --lightgray: #FFFFFF;
 }
 
 html,
