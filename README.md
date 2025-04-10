@@ -28,7 +28,7 @@ Permite buscar perfiles de GitHub e interactuar con la información pública del
 - ⚛️ **React** + **TypeScript**
 - 🎨 **Tailwind CSS**
 - 🌐 **Axios**
-- 🌙 **Dark Mode** con `dark:` de Tailwind
+- 🌙 **Dark Mode**
 - 📦 Vite
 
 ---
@@ -36,7 +36,7 @@ Permite buscar perfiles de GitHub e interactuar con la información pública del
 ## 🚀 Instalación
 
 ```bash
-git clone https://github.com/tuusuario/github-user-search-app.git
+git clone https://github.com/IgnacioGonzalia/github-user-search-app.git
 cd github-user-search-app
 npm install
 npm run dev
