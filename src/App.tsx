@@ -10,6 +10,7 @@ function App() {
   const [userData, setUserData] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     handleSearch("octocat");
@@ -21,6 +22,7 @@ function App() {
     try {
       const data = await fetchUser(username);
       setUserData(data);
+      setSearch("");
     } catch (error) {
       setError("No results");
       setUserData(null);
@@ -32,7 +34,12 @@ function App() {
   return (
     <ThemeProvider>
       <NavBar />
-      <UserSearch onSearch={handleSearch} error={error} />
+      <UserSearch
+        search={search}
+        setSearch={setSearch}
+        onSearch={handleSearch}
+        error={error}
+      />
       <UserCard user={userData} loading={loading} />
     </ThemeProvider>
   );

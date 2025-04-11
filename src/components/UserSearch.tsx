@@ -1,13 +1,18 @@
-import { useState } from "react";
 import SearchIcon from "../assets/icon-search.svg";
 
 interface UserSearchProps {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   onSearch: (username: string) => void;
   error: string;
 }
 
-const UserSearch = ({ onSearch, error }: UserSearchProps) => {
-  const [search, setSearch] = useState("");
+const UserSearch = ({
+  search,
+  setSearch,
+  onSearch,
+  error,
+}: UserSearchProps) => {
   const searchContainer =
     "mt-9 mx-auto flex w-[350px] pt-[6.5px] pb-[7.5px] pl-4 pr-2 items-center rounded-2xl transition-colors bg-[var(--card-bg)] text-[var(--text)] shadow-xl relative";
   const searchContainerLarger =
@@ -20,12 +25,7 @@ const UserSearch = ({ onSearch, error }: UserSearchProps) => {
     "space-mono bold bg-[var(--lightblue)] text-white pl-[18px] pr-[14px] py-3 rounded-[10px] cursor-pointer hover:bg-[var(--lightblue-hover)] transition-all";
   const buttonStylesLarger = "md:text-base md:pt-[12.5px] md:pb-[13.5] md:px-6";
   const errorMsg =
-    "absolute text-[var(--red)] space-mono bold -bottom-10 lg:bottom-auto right-[140px]";
-
-  const handleSearch = () => {
-    onSearch(search);
-    if (error === "") setSearch("");
-  };
+    "absolute text-[var(--red)] space-mono bold -bottom-10 lg:bottom-auto lg:right-[140px]";
 
   return (
     <div className={`${searchContainer} ${searchContainerLarger}`}>
@@ -38,7 +38,7 @@ const UserSearch = ({ onSearch, error }: UserSearchProps) => {
       />
       <button
         className={`${buttonStyles} ${buttonStylesLarger}`}
-        onClick={handleSearch}
+        onClick={() => onSearch(search)}
       >
         Search
       </button>
