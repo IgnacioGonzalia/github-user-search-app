@@ -1,5 +1,6 @@
 import { GitHubUser } from "../utils/githubAPI";
 import SocialRow from "./SocialRow";
+import UserCardLoader from "./UserCardLoader";
 import LocationIcon from "../assets/icon-location.svg";
 import LinkIcon from "../assets/icon-website.svg";
 import TwitterIcon from "../assets/icon-twitter.svg";
@@ -54,7 +55,18 @@ const UserCard = ({ user, loading }: UserCardProps) => {
     });
   };
 
-  if (loading || user === null) return <p>Loading...</p>;
+  if (loading || user === null)
+    return (
+      <UserCardLoader
+        cardContainer={cardContainer}
+        infoSection={infoSection}
+        avatarStyles={avatarStyles}
+        lgArrangement={lgArrangement}
+        dataCard={dataCard}
+        socialSection={socialSection}
+        socialCol={socialCol}
+      />
+    );
 
   return (
     <div className={cardContainer}>
