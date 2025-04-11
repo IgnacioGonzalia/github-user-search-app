@@ -1,8 +1,13 @@
 import { GitHubUser } from "../utils/githubAPI";
+import { useTheme } from "../utils/ThemeContext";
 import LocationIcon from "../assets/icon-location.svg";
 import LinkIcon from "../assets/icon-website.svg";
 import TwitterIcon from "../assets/icon-twitter.svg";
 import CompanyIcon from "../assets/icon-company.svg";
+import LocationIconWhite from "../assets/icon-location-white.svg";
+import LinkIconWhite from "../assets/icon-website-white.svg";
+import TwitterIconWhite from "../assets/icon-twitter-white.svg";
+import CompanyIconWhite from "../assets/icon-company-white.svg";
 
 interface UserCardProps {
   user: GitHubUser | null;
@@ -10,23 +15,34 @@ interface UserCardProps {
 }
 
 const UserCard = ({ user, loading }: UserCardProps) => {
+  const { darkTheme } = useTheme();
   const cardContainer =
-    "mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px]";
-  const infoSection = "flex flex-row gap-[19px]";
-  const avatarStyles = "w-[70px] h-[70px] rounded-full";
-  const nameStyles = "space-mono bold text-base text-[var(--darkblue)]";
-  const userStyles = "space-mono text-[13px] text-[var(--lightblue)]";
+    "mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
+  const infoSection = "flex flex-row items-center gap-[19px] md:gap-10";
+  const avatarStyles =
+    "w-[70px] h-[70px] rounded-full md:w-28 md:h-28 lg:w-[117px] lg:h-[117px] lg:absolute lg:top-12 lg:left-12";
+  const lgArrangement = "lg:flex lg:flex-row lg:justify-between lg:w-[480px]";
+  const nameStyles =
+    "space-mono bold text-base text-[var(--darkblue)] md:text-[26px]";
+  const userStyles =
+    "space-mono text-[13px] text-[var(--lightblue)] md:text-base md:mt-0.5";
   const dateJoinedStyles =
-    "mt-[6px] space-mono text-[13px] text-[var(--lightgray)]";
-  const bioStyles = "mt-8 space-mono text-[13px] text-[var(--text)]";
+    "mt-[6px] space-mono text-[13px] text-[var(--lightgray)] md:text-[15px] md:mt-1";
+  const bioStyles =
+    "mt-8 space-mono text-[13px] text-[var(--text)] md:mt-6 md:text-[15px] lg:mt-5";
   const dataCard =
-    "mt-6 flex flex-row justify-center gap-10 py-[18px] px-[14px] bg-[var(--bg)] rounded-[10px]";
-  const dataContainer = "text-center flex flex-col gap-2";
-  const dataCategory = "space-mono text-[11px] text-[var(--text)]";
-  const dataNumber = "space-mono bold text-base text-[var(--darkblue)]";
-  const socialSection = "mt-6 flex flex-col gap-4";
+    "mt-6 flex flex-row justify-center gap-10 py-[18px] px-[14px] bg-[var(--bg)] rounded-[10px] md:mt-8 md:py-4 md:pl-8 md:pr-24 md:justify-between";
+  const dataContainer =
+    "text-center flex flex-col gap-2 md:gap-[1px] md:text-start";
+  const dataCategory =
+    "space-mono text-[11px] text-[var(--text)] md:text-[13px]";
+  const dataNumber =
+    "space-mono bold text-base text-[var(--darkblue)] md:text-[22px]";
+  const socialSection =
+    "mt-6 flex flex-col gap-4 md:mt-7 md:flex-row md:gap-16 md:mt-9";
+  const socialCol = "flex flex-col gap-4 md:gap-5";
   const socialRow = "flex flex-row gap-5";
-  const socialText = "space-mono text-[13px] text-[var(--text)]";
+  const socialText = "space-mono text-[13px] text-[var(--text)] md:text-[15px]";
   const disabled = "opacity-50";
   const userblog = "cursor-pointer hover:underline";
 
@@ -51,19 +67,18 @@ const UserCard = ({ user, loading }: UserCardProps) => {
               alt="User avatar"
               className={avatarStyles}
             />
-            <div>
-              <h2 className={nameStyles}>{user.name}</h2>
-              <p className={userStyles}>@{user.login}</p>
+            <div className={lgArrangement}>
+              <div>
+                <h2 className={nameStyles}>{user.name}</h2>
+                <p className={userStyles}>@{user.login}</p>
+              </div>
               <p className={dateJoinedStyles}>
                 Joined {formatDate(user.created_at)}
               </p>
             </div>
           </div>
           <div>
-            <p className={bioStyles}>
-              {user.bio ??
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros."}
-            </p>
+            <p className={bioStyles}>{user.bio ?? "This profile has no bio"}</p>
           </div>
           <div className={dataCard}>
             <div className={dataContainer}>
@@ -80,49 +95,59 @@ const UserCard = ({ user, loading }: UserCardProps) => {
             </div>
           </div>
           <div className={socialSection}>
-            <div className={socialRow}>
-              <img
-                src={LocationIcon}
-                alt="Location"
-                className={` ${!user.location && disabled}`}
-              />
-              <p className={`${socialText} ${!user.location && disabled}`}>
-                {user.location ?? "Not Available"}
-              </p>
+            <div className={socialCol}>
+              <div className={socialRow}>
+                <img
+                  src={darkTheme ? LocationIconWhite : LocationIcon}
+                  alt="Location"
+                  className={` ${!user.location && disabled}`}
+                />
+                <p className={`${socialText} ${!user.location && disabled}`}>
+                  {user.location ?? "Not Available"}
+                </p>
+              </div>
+              <div className={socialRow}>
+                <img
+                  src={darkTheme ? LinkIconWhite : LinkIcon}
+                  alt="Website"
+                  className={` ${!user.blog && disabled}`}
+                />
+                <p
+                  className={`${socialText} ${user.blog ? userblog : disabled}`}
+                >
+                  {user.blog !== "" ? (
+                    <a href={user.blog}>{user.blog}</a>
+                  ) : (
+                    "Not Available"
+                  )}
+                </p>
+              </div>
             </div>
-            <div className={socialRow}>
-              <img
-                src={LinkIcon}
-                alt="Website"
-                className={` ${!user.blog && disabled}`}
-              />
-              <p className={`${socialText} ${user.blog ? userblog : disabled}`}>
-                {user.blog !== "" ? <a href={user.blog}>{user.blog}</a> : "Not Available"}
-              </p>
-            </div>
-            <div className={socialRow}>
-              <img
-                src={TwitterIcon}
-                alt="Twitter"
-                className={` ${!user.twitter_username && disabled}`}
-              />
-              <p
-                className={`${socialText} ${
-                  !user.twitter_username && disabled
-                }`}
-              >
-                {user.twitter_username ?? "Not Available"}
-              </p>
-            </div>
-            <div className={socialRow}>
-              <img
-                src={CompanyIcon}
-                alt="Company"
-                className={`${!user.company && disabled}`}
-              />
-              <p className={`${socialText} ${!user.company && disabled}`}>
-                {user.company ?? "Not Available"}
-              </p>
+            <div className={socialCol}>
+              <div className={socialRow}>
+                <img
+                  src={darkTheme ? TwitterIconWhite : TwitterIcon}
+                  alt="Twitter"
+                  className={` ${!user.twitter_username && disabled}`}
+                />
+                <p
+                  className={`${socialText} ${
+                    !user.twitter_username && disabled
+                  }`}
+                >
+                  {user.twitter_username ?? "Not Available"}
+                </p>
+              </div>
+              <div className={socialRow}>
+                <img
+                  src={darkTheme ? CompanyIconWhite : CompanyIcon}
+                  alt="Company"
+                  className={`${!user.company && disabled}`}
+                />
+                <p className={`${socialText} ${!user.company && disabled}`}>
+                  {user.company ?? "Not Available"}
+                </p>
+              </div>
             </div>
           </div>
         </div>
