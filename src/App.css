@@ -9,6 +9,7 @@
   --lightblue-hover: #60ABFF;
   --darkblue: #2B3442;
   --lightgray: #697C9A;
+  --red: #F74646;
 }
 
 .dark {
@@ -19,6 +20,7 @@
   --lightblue-hover: #60ABFF;
   --darkblue: #FFFFFF;
   --lightgray: #FFFFFF;
+  --red: #F74646;
 }
 
 html,

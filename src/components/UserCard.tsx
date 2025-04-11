@@ -55,7 +55,7 @@ const UserCard = ({ user, loading }: UserCardProps) => {
     });
   };
 
-  if (loading || user === null)
+  if (loading)
     return (
       <UserCardLoader
         cardContainer={cardContainer}
@@ -67,6 +67,8 @@ const UserCard = ({ user, loading }: UserCardProps) => {
         socialCol={socialCol}
       />
     );
+
+  if (user === null) return;
 
   return (
     <div className={cardContainer}>
