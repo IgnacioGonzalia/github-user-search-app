@@ -1,5 +1,5 @@
 import { GitHubUser } from "../utils/githubAPI";
-import { useTheme } from "../utils/ThemeContext";
+import SocialRow from "./SocialRow";
 import LocationIcon from "../assets/icon-location.svg";
 import LinkIcon from "../assets/icon-website.svg";
 import TwitterIcon from "../assets/icon-twitter.svg";
@@ -15,7 +15,6 @@ interface UserCardProps {
 }
 
 const UserCard = ({ user, loading }: UserCardProps) => {
-  const { darkTheme } = useTheme();
   const cardContainer =
     "mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
   const infoSection = "flex flex-row items-center gap-[19px] md:gap-10";
@@ -55,104 +54,86 @@ const UserCard = ({ user, loading }: UserCardProps) => {
     });
   };
 
+  if (loading || user === null) return <p>Loading...</p>;
+
   return (
-    <>
-      {loading || user === null ? (
-        <p>Loading...</p>
-      ) : (
-        <div className={cardContainer}>
-          <div className={infoSection}>
-            <img
-              src={user.avatar_url}
-              alt="User avatar"
-              className={avatarStyles}
-            />
-            <div className={lgArrangement}>
-              <div>
-                <h2 className={nameStyles}>{user.name}</h2>
-                <p className={userStyles}>@{user.login}</p>
-              </div>
-              <p className={dateJoinedStyles}>
-                Joined {formatDate(user.created_at)}
-              </p>
-            </div>
-          </div>
+    <div className={cardContainer}>
+      <div className={infoSection}>
+        <img src={user.avatar_url} alt="User avatar" className={avatarStyles} />
+        <div className={lgArrangement}>
           <div>
-            <p className={bioStyles}>{user.bio ?? "This profile has no bio"}</p>
+            <h2 className={nameStyles}>{user.name}</h2>
+            <p className={userStyles}>@{user.login}</p>
           </div>
-          <div className={dataCard}>
-            <div className={dataContainer}>
-              <p className={dataCategory}>Repos</p>
-              <p className={dataNumber}>{user.public_repos}</p>
-            </div>
-            <div className={dataContainer}>
-              <p className={dataCategory}>Followers</p>
-              <p className={dataNumber}>{user.followers}</p>
-            </div>
-            <div className={dataContainer}>
-              <p className={dataCategory}>Following</p>
-              <p className={dataNumber}>{user.following}</p>
-            </div>
-          </div>
-          <div className={socialSection}>
-            <div className={socialCol}>
-              <div className={socialRow}>
-                <img
-                  src={darkTheme ? LocationIconWhite : LocationIcon}
-                  alt="Location"
-                  className={` ${!user.location && disabled}`}
-                />
-                <p className={`${socialText} ${!user.location && disabled}`}>
-                  {user.location ?? "Not Available"}
-                </p>
-              </div>
-              <div className={socialRow}>
-                <img
-                  src={darkTheme ? LinkIconWhite : LinkIcon}
-                  alt="Website"
-                  className={` ${!user.blog && disabled}`}
-                />
-                <p
-                  className={`${socialText} ${user.blog ? userblog : disabled}`}
-                >
-                  {user.blog !== "" ? (
-                    <a href={user.blog}>{user.blog}</a>
-                  ) : (
-                    "Not Available"
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className={socialCol}>
-              <div className={socialRow}>
-                <img
-                  src={darkTheme ? TwitterIconWhite : TwitterIcon}
-                  alt="Twitter"
-                  className={` ${!user.twitter_username && disabled}`}
-                />
-                <p
-                  className={`${socialText} ${
-                    !user.twitter_username && disabled
-                  }`}
-                >
-                  {user.twitter_username ?? "Not Available"}
-                </p>
-              </div>
-              <div className={socialRow}>
-                <img
-                  src={darkTheme ? CompanyIconWhite : CompanyIcon}
-                  alt="Company"
-                  className={`${!user.company && disabled}`}
-                />
-                <p className={`${socialText} ${!user.company && disabled}`}>
-                  {user.company ?? "Not Available"}
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className={dateJoinedStyles}>
+            Joined {formatDate(user.created_at)}
+          </p>
         </div>
-      )}
-    </>
+      </div>
+
+      <div>
+        <p className={bioStyles}>{user.bio ?? "This profile has no bio"}</p>
+      </div>
+
+      <div className={dataCard}>
+        <div className={dataContainer}>
+          <p className={dataCategory}>Repos</p>
+          <p className={dataNumber}>{user.public_repos}</p>
+        </div>
+        <div className={dataContainer}>
+          <p className={dataCategory}>Followers</p>
+          <p className={dataNumber}>{user.followers}</p>
+        </div>
+        <div className={dataContainer}>
+          <p className={dataCategory}>Following</p>
+          <p className={dataNumber}>{user.following}</p>
+        </div>
+      </div>
+
+      <div className={socialSection}>
+        <div className={socialCol}>
+          <SocialRow
+            iconLight={LocationIcon}
+            iconDark={LocationIconWhite}
+            label={user.location}
+            socialText={socialText}
+            styles={socialRow}
+            disabled={disabled}
+            userblog={userblog}
+          />
+          <SocialRow
+            iconLight={LinkIcon}
+            iconDark={LinkIconWhite}
+            label={user.blog}
+            isLink
+            socialText={socialText}
+            styles={socialRow}
+            disabled={disabled}
+            userblog={userblog}
+          />
+        </div>
+        <div className={socialCol}>
+          <SocialRow
+            iconLight={TwitterIcon}
+            iconDark={TwitterIconWhite}
+            label={user.twitter_username}
+            socialText={socialText}
+            styles={socialRow}
+            disabled={disabled}
+            userblog={userblog}
+          />
+          <SocialRow
+            iconLight={CompanyIcon}
+            iconDark={CompanyIconWhite}
+            label={user.company}
+            socialText={socialText}
+            styles={socialRow}
+            disabled={disabled}
+            userblog={userblog}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
