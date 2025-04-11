@@ -68,9 +68,9 @@ src/
 - [x] Setup inicial
 - [x] Tema claro/oscuro
 - [x] Navbar + fuentes
-- [ ] SearchBar interactiva
-- [ ] Fetch de GitHub API
-- [ ] Card de usuario
+- [x] SearchBar interactiva
+- [x] Fetch de GitHub API
+- [x] Card de usuario
 - [ ] AGG: Autocompletado
 - [ ] AGG: Traducción
 - [ ] AGG: Compartir screen
