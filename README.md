@@ -73,4 +73,4 @@ src/
 - [x] Card de usuario
 - [x] AGG: Autocompletado
 - [x] AGG: Traducción
-- [ ] AGG: Compartir screen
+- [x] AGG: Compartir screen
