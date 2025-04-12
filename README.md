@@ -71,6 +71,6 @@ src/
 - [x] SearchBar interactiva
 - [x] Fetch de GitHub API
 - [x] Card de usuario
-- [ ] AGG: Autocompletado
+- [x] AGG: Autocompletado
 - [ ] AGG: Traducción
 - [ ] AGG: Compartir screen
