@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { GitHubUser } from "../utils/githubAPI";
 import { useTranslation } from "react-i18next";
+import html2canvas from "html2canvas";
 import SocialRow from "./SocialRow";
 import UserCardLoader from "./UserCardLoader";
 import LocationIcon from "../assets/icon-location.svg";
@@ -10,6 +12,7 @@ import LocationIconWhite from "../assets/icon-location-white.svg";
 import LinkIconWhite from "../assets/icon-website-white.svg";
 import TwitterIconWhite from "../assets/icon-twitter-white.svg";
 import CompanyIconWhite from "../assets/icon-company-white.svg";
+import ShareIcon from "../assets/icon-share.svg";
 
 interface UserCardProps {
   user: GitHubUser | null;
@@ -19,8 +22,9 @@ interface UserCardProps {
 const UserCard = ({ user, loading }: UserCardProps) => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
+  const cardRef = useRef<HTMLDivElement>(null);
   const cardContainer =
-    "mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
+    "relative mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
   const infoSection = "flex flex-row items-center gap-[19px] md:gap-10";
   const avatarStyles =
     "w-[70px] h-[70px] rounded-full md:w-28 md:h-28 lg:w-[117px] lg:h-[117px] lg:absolute lg:top-12 lg:left-12";
@@ -48,6 +52,11 @@ const UserCard = ({ user, loading }: UserCardProps) => {
   const socialText = "space-mono text-[13px] text-[var(--text)] md:text-[15px]";
   const disabled = "opacity-50";
   const userblog = "cursor-pointer hover:underline";
+  const shareButtonContainer =
+    "absolute shadow-2xl bottom-2 right-2 md:bottom-4 md:right-4";
+  const shareButton =
+    "p-2 rounded-full cursor-pointer bg-[var(--lightblue)] hover:bg-[var(--lightblue-hover)] transition md:p-3";
+  const shareBtnIcon = "w-3 h-3 md:w-4 md:h-4";
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -73,10 +82,36 @@ const UserCard = ({ user, loading }: UserCardProps) => {
 
   if (user === null) return;
 
+  const downloadCardAsImage = async (
+    ref: React.RefObject<HTMLDivElement | null>,
+    filename: string
+  ) => {
+    if (!ref.current) return;
+
+    const button = document.querySelector("button.share-button") as HTMLElement;
+    if (button) button.style.display = "none";
+    const canvas = await html2canvas(ref.current, {
+      useCORS: true,
+      backgroundColor: null,
+      scale: 2,
+    });
+    const img = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = img;
+    link.download = `${filename}_github_card.png`;
+    link.click();
+    if (button) button.style.display = "block";
+  };
+
   return (
-    <div className={cardContainer}>
+    <div ref={cardRef} className={cardContainer}>
       <div className={infoSection}>
-        <img src={user.avatar_url} alt="User avatar" className={avatarStyles} />
+        <img
+          src={user.avatar_url}
+          alt="User avatar"
+          crossOrigin="anonymous"
+          className={avatarStyles}
+        />
         <div className={lgArrangement}>
           <div>
             <h2 className={nameStyles}>{user.name}</h2>
@@ -149,6 +184,14 @@ const UserCard = ({ user, loading }: UserCardProps) => {
             userblog={userblog}
           />
         </div>
+      </div>
+      <div className={shareButtonContainer} data-html2canvas-ignore>
+        <button
+          onClick={() => downloadCardAsImage(cardRef, user.login)}
+          className={shareButton}
+        >
+          <img src={ShareIcon} alt="Share" className={shareBtnIcon} />
+        </button>
       </div>
     </div>
   );
