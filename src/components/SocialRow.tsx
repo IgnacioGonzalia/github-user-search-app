@@ -1,4 +1,5 @@
 import { useTheme } from "../utils/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface SocialRowProps {
   iconLight: string;
@@ -22,6 +23,7 @@ const SocialRow = ({
   userblog,
 }: SocialRowProps) => {
   const { darkTheme } = useTheme();
+  const { t } = useTranslation();
   const icon = darkTheme ? iconDark : iconLight;
   const isAvailable = !!label;
 
@@ -34,7 +36,7 @@ const SocialRow = ({
   }
 
   let displayLabel: React.ReactNode;
-  if (!isAvailable) displayLabel = "Not Available";
+  if (!isAvailable) displayLabel = t("not_available");
   else if (isLink) {
     displayLabel = (
       <a className={userblog} href={label}>

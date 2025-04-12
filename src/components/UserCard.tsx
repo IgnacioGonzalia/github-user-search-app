@@ -1,4 +1,5 @@
 import { GitHubUser } from "../utils/githubAPI";
+import { useTranslation } from "react-i18next";
 import SocialRow from "./SocialRow";
 import UserCardLoader from "./UserCardLoader";
 import LocationIcon from "../assets/icon-location.svg";
@@ -16,6 +17,8 @@ interface UserCardProps {
 }
 
 const UserCard = ({ user, loading }: UserCardProps) => {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const cardContainer =
     "mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
   const infoSection = "flex flex-row items-center gap-[19px] md:gap-10";
@@ -48,7 +51,7 @@ const UserCard = ({ user, loading }: UserCardProps) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
+    return date.toLocaleDateString(i18n.language, {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -80,13 +83,13 @@ const UserCard = ({ user, loading }: UserCardProps) => {
             <p className={userStyles}>@{user.login}</p>
           </div>
           <p className={dateJoinedStyles}>
-            Joined {formatDate(user.created_at)}
+            {t("joined")} {formatDate(user.created_at)}
           </p>
         </div>
       </div>
 
       <div>
-        <p className={bioStyles}>{user.bio ?? "This profile has no bio"}</p>
+        <p className={bioStyles}>{user.bio ?? t("bio_default")}</p>
       </div>
 
       <div className={dataCard}>
@@ -95,11 +98,11 @@ const UserCard = ({ user, loading }: UserCardProps) => {
           <p className={dataNumber}>{user.public_repos}</p>
         </div>
         <div className={dataContainer}>
-          <p className={dataCategory}>Followers</p>
+          <p className={dataCategory}>{t("followers")}</p>
           <p className={dataNumber}>{user.followers}</p>
         </div>
         <div className={dataContainer}>
-          <p className={dataCategory}>Following</p>
+          <p className={dataCategory}>{t("following")}</p>
           <p className={dataNumber}>{user.following}</p>
         </div>
       </div>

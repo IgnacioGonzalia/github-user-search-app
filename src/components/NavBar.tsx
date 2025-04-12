@@ -1,9 +1,11 @@
 import { useTheme } from "../utils/ThemeContext";
+import { useTranslation } from "react-i18next";
 import MoonIcon from "../assets/icon-moon.svg";
 import SunIcon from "../assets/icon-sun.svg";
 
 const NavBar = () => {
   const { darkTheme, setDarkTheme } = useTheme();
+  const { t } = useTranslation();
   const navbarContainer =
     "mt-8 mx-6 flex flex-row justify-between items-center p-6 transition-colors text-[var(--text)] md:mt-36 md:mx-24 lg:max-w-[730px] lg:mx-auto";
   const logoStyles = "space-mono bold text-[26px]";
@@ -19,7 +21,7 @@ const NavBar = () => {
         className={themeToggleStyles}
         onClick={() => setDarkTheme(!darkTheme)}
       >
-        <p className={toggleTextStyles}>{darkTheme ? "Light" : "Dark"}</p>
+        <p className={toggleTextStyles}>{darkTheme ? t("Light") : t("Dark")}</p>
         <img
           src={darkTheme ? SunIcon : MoonIcon}
           alt="Theme toggle"

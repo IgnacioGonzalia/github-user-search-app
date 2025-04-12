@@ -1,0 +1,12 @@
+{
+  "Dark": "Oscuro",
+  "Light": "Claro",
+  "search_placeholder": "Buscar usuario de GitHub…",
+  "search_button": "Buscar",
+  "no_results": "No se encontraron resultados",
+  "joined": "Se unió el",
+  "bio_default": "Este perfil no tiene biografía",
+  "followers": "Seguidores",
+  "following": "Siguiendo",
+  "not_available": "No Disponible"
+}

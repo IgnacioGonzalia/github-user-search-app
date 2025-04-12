@@ -1,0 +1,12 @@
+{
+  "Dark": "Dark",
+  "Light": "Light",
+  "search_placeholder": "Search GitHub username…",
+  "search_button": "Search",
+  "no_results": "No results",
+  "joined": "Joined",
+  "followers": "Followers",
+  "following": "Following",
+  "bio_default": "This profile has no bio",
+  "not_available": "Not Available"
+}

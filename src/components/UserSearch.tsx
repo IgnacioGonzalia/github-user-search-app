@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getRecommendations, GitHubUser } from "../utils/githubAPI";
+import { useTranslation } from "react-i18next";
 import UserRecommendations from "./UserRecommendations";
 import SearchIcon from "../assets/icon-search.svg";
 
@@ -16,6 +17,7 @@ const UserSearch = ({
   onSearch,
   error,
 }: UserSearchProps) => {
+  const { t } = useTranslation();
   const [recommendations, setRecommendations] = useState<GitHubUser[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -92,7 +94,7 @@ const UserSearch = ({
     >
       <img src={SearchIcon} alt="Search icon" className={searchIconStyles} />
       <input
-        placeholder="Search GitHub username…"
+        placeholder={t("search_placeholder")}
         className={`${inputStyles} ${inputStylesLarger}`}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={(e) => handleKeyDown(e)}
@@ -102,7 +104,7 @@ const UserSearch = ({
         className={`${buttonStyles} ${buttonStylesLarger}`}
         onClick={() => onSearch(search.trim())}
       >
-        Search
+        {t("search_button")}
       </button>
       {error !== "" && <p className={errorMsg}>{error}</p>}
       {recommendations.length > 0 && (

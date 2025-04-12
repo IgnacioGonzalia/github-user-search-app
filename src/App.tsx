@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "./utils/ThemeContext";
 import { GitHubUser, fetchUser } from "./utils/githubAPI";
+import { useTranslation } from "react-i18next";
 import NavBar from "./components/NavBar";
 import UserSearch from "./components/UserSearch";
 import UserCard from "./components/UserCard";
 import "./App.css";
 
 function App() {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,7 +26,7 @@ function App() {
       setUserData(data);
       setSearch("");
     } catch (error) {
-      setError("No results");
+      setError(t("no_results"));
       setUserData(null);
     } finally {
       setLoading(false);
