@@ -72,5 +72,5 @@ src/
 - [x] Fetch de GitHub API
 - [x] Card de usuario
 - [x] AGG: Autocompletado
-- [ ] AGG: Traducción
+- [x] AGG: Traducción
 - [ ] AGG: Compartir screen
