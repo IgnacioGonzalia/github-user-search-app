@@ -17,6 +17,8 @@ const UserCardLoader = ({
   socialSection,
   socialCol,
 }: UserCardLoaderProps) => {
+  const skeletonKeys = ["row-1", "row-2"];
+
   return (
     <div className={cardContainer + " animate-pulse"}>
       <div className={infoSection}>
@@ -53,7 +55,7 @@ const UserCardLoader = ({
 
       <div className={socialSection}>
         <div className={socialCol}>
-          {[...Array(2)].map((key) => (
+          {skeletonKeys.map((key) => (
             <div key={key} className="flex flex-row gap-5">
               <div className="w-5 h-5 bg-gray-300 rounded" />
               <div className="h-4 w-32 bg-gray-300 rounded" />
@@ -61,10 +63,10 @@ const UserCardLoader = ({
           ))}
         </div>
         <div className={socialCol}>
-          {[...Array(2)].map((key) => (
+          {skeletonKeys.map((key) => (
             <div key={key} className="flex flex-row gap-5">
               <div className="w-5 h-5 bg-gray-300 rounded" />
-              <div className="h-4 w-28 bg-gray-300 rounded" />
+              <div className="h-4 w-32 bg-gray-300 rounded" />
             </div>
           ))}
         </div>

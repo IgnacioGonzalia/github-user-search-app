@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from "react";
+import { getRecommendations, GitHubUser } from "../utils/githubAPI";
+import UserRecommendations from "./UserRecommendations";
 import SearchIcon from "../assets/icon-search.svg";
 
 interface UserSearchProps {
@@ -13,6 +16,9 @@ const UserSearch = ({
   onSearch,
   error,
 }: UserSearchProps) => {
+  const [recommendations, setRecommendations] = useState<GitHubUser[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const containerRef = useRef<HTMLDivElement>(null);
   const searchContainer =
     "mt-9 mx-auto flex w-[350px] pt-[6.5px] pb-[7.5px] pl-4 pr-2 items-center rounded-2xl transition-colors bg-[var(--card-bg)] text-[var(--text)] shadow-xl relative";
   const searchContainerLarger =
@@ -27,22 +33,85 @@ const UserSearch = ({
   const errorMsg =
     "absolute text-[var(--red)] space-mono bold -bottom-10 lg:bottom-auto lg:right-[140px]";
 
+  useEffect(() => {
+    if (search.trim().length < 3) {
+      setRecommendations([]);
+      return;
+    }
+
+    const delay = setTimeout(async () => {
+      try {
+        const data = await getRecommendations(search);
+        setRecommendations(data?.items?.slice(0, 5));
+      } catch (error) {
+        console.error("error getting users", error);
+        setRecommendations([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(delay);
+  }, [search]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      )
+        setRecommendations([]);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    setSelectedIndex(-1);
+  }, [recommendations]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown")
+      setSelectedIndex((prev) =>
+        prev < recommendations.length - 1 ? prev + 1 : 0
+      );
+    else if (e.key === "ArrowUp")
+      setSelectedIndex((prev) =>
+        prev > 0 ? prev - 1 : recommendations.length - 1
+      );
+    else if (e.key === "Enter" && selectedIndex >= 0) {
+      onSearch(recommendations[selectedIndex].login);
+      setSelectedIndex(-1);
+      setRecommendations([]);
+    }
+  };
+
   return (
-    <div className={`${searchContainer} ${searchContainerLarger}`}>
+    <div
+      ref={containerRef}
+      className={`${searchContainer} ${searchContainerLarger}`}
+    >
       <img src={SearchIcon} alt="Search icon" className={searchIconStyles} />
       <input
         placeholder="Search GitHub username…"
         className={`${inputStyles} ${inputStylesLarger}`}
         onChange={(e) => setSearch(e.target.value)}
+        onKeyDown={(e) => handleKeyDown(e)}
         value={search}
       />
       <button
         className={`${buttonStyles} ${buttonStylesLarger}`}
-        onClick={() => onSearch(search)}
+        onClick={() => onSearch(search.trim())}
       >
         Search
       </button>
       {error !== "" && <p className={errorMsg}>{error}</p>}
+      {recommendations.length > 0 && (
+        <UserRecommendations
+          data={recommendations}
+          onSelect={onSearch}
+          selectedIndex={selectedIndex}
+        />
+      )}
     </div>
   );
 };
