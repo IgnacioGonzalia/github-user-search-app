@@ -24,7 +24,7 @@ const UserCard = ({ user, loading }: UserCardProps) => {
   const { i18n } = useTranslation();
   const cardRef = useRef<HTMLDivElement>(null);
   const cardContainer =
-    "relative mx-auto my-4 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
+    "relative mx-auto mt-4 mb-20 w-[350px] bg-[var(--card-bg)] rounded-2xl shadow-xl pt-8 px-6 pb-[48px] md:w-[573px] md:p-10 lg:mt-6 lg:w-[730px] lg:p-12 lg:pt-11 lg:pl-[202px] lg:relative";
   const infoSection = "flex flex-row items-center gap-[19px] md:gap-10";
   const avatarStyles =
     "w-[70px] h-[70px] rounded-full md:w-28 md:h-28 lg:w-[117px] lg:h-[117px] lg:absolute lg:top-12 lg:left-12";
